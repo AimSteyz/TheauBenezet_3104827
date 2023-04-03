@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+      </head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+
+    </header>
+
+<main>
+<!-- Introduction -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">Welcome to Marvel Blog</h1>
+            <p class="text-center">This is a blog about Marvel movies and comics</p>
+            <p class="text-center">You can read articles about Marvel movies and comics, and you can also write your own articles</p>
+            <p class="text-center">This website is a re upload of the <a href="https://marvel.fandom.com/wiki/Marvel_Database">Marvel Database</a> articles</p>
+        </div>
+    </div>
+
+    <!-- show the last 10 articles -->
+    <div class="container">
+        <h1>Articles</h1>
+        <% let limit = 10; %>
+        <% if (data.length < 10) { %>
+            <% limit = data.length; %>
+        <% } %>
+        <% for (let i = data.length-1; i >= data.length-limit; i--) { %>
+        <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title"><%= data[i].title %></h5>
+              <!-- display the start of the content -->
+              <p class="card-text"><%= data[i].content.substring(0, 100) %>...</p>
+              <!-- <p class="card-text"><%= data[i].content %></p> -->
+              <p class="card-text"><small class="text-muted">Written by <%= data[i].author %></small></p>
+              <a href="/Article/<%= data[i]._id %>" class="btn btn-primary">Read more</a>
+            </div>
+          </div>
+          <% } %>
+    </div>
+
+</main>
+
+
+</body>
+</html>

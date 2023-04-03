@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('../partials/head'); %>
+      </head>
+
+<body class="container">
+    <header>
+        <%- include('../partials/header'); %>
+
+    </header>
+
+<main>
+
+<!-- display ONE article -->
+    <h1><%= data.title %></h1>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title"><%= data.title %></h5>
+          <p class="card-text"><%= data.content %></p>
+          <p class="card-text"><small class="text-muted">Written by <%= data.author %> at <%= data.time%></small></p>
+        </div>
+      </div>
+
+
+      <!--  row display -->
+        <div class="row" style="padding-left: 1rem;">
+            <!-- edit button redirecting to EditPost page -->
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/editPost/<%= data._id %>'">Edit</button>
+
+      
+        <form action="/api/delete/<%= data._id %>" method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+        </div>
+
+      <h2>Comments</h2>
+      <p> <%= comments.length %> comments</p>
+        <% comments.forEach(comment => { %>
+            <p class="card-text"><%= comment.content %></p>
+            <p class="card-text"><small class="text-muted">Written by <%= comment.author %> at <%= comment.time%></small></p>
+        <% }) %>
+
+    <h2>Write a comment</h2>
+        <form action="/api/postCommentary/<%= data._id %>" method="POST">
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" name="author" placeholder="Enter author">
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</main>
